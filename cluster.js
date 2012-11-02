@@ -44,7 +44,8 @@ var cluster = new Cluster({
   host: global.environment.host,
   monPort: global.environment.port+1,
   monHost: global.environment.host,
-  noWorkers: 1 
+  timeout: 600,
+  noWorkers: 1
 });
 
 cluster.listen(function(cb) {
