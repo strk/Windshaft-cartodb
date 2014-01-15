@@ -1,6 +1,10 @@
 1.5.4 -- 2014-MM-DD
 -------------------
 
+Enhancements:
+
+* Reduce noise on non-functional layergroup creation (#109)
+
 1.5.3 -- 2014-01-14
 -------------------
 
