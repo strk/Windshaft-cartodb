@@ -16,6 +16,8 @@ var serverOptions = require(__dirname + '/../../lib/cartodb/server_options')();
 var server = new CartodbWindshaft(serverOptions);
 server.setMaxListeners(0);
 
+var IMAGE_EQUALS_TOLERANCE_PERCENT = 9;
+
 suite('server', function() {
 
     var redis_client = redis.createClient(global.environment.redis.port);
@@ -842,7 +844,7 @@ suite('server', function() {
           assert.equal(res.statusCode, 200, res.statusCode + ': ' + res.body);
           var ct = res.headers['content-type'];
           assert.equal(ct, 'image/png');
-          assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png',  2,
+          assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
             function(err, similarity) {
               if (err) throw err;
               done();
@@ -873,7 +875,7 @@ suite('server', function() {
             assert.equal(ct, 'image/png');
             assert.imageEqualsFile(res.body,
               './test/fixtures/test_table_15_16046_12354_styled_black.png',
-              2, this);
+             IMAGE_EQUALS_TOLERANCE_PERCENT, this);
           },
           function checkImage(err, similarity) {
               if (err) throw err;
@@ -910,7 +912,7 @@ suite('server', function() {
             assert.equal(ct, 'image/png');
             assert.imageEqualsFile(res.body,
               './test/fixtures/test_table_15_16046_12354_styled_black.png',
-              2, this);
+             IMAGE_EQUALS_TOLERANCE_PERCENT, this);
           },
           function checkImage(err, similarity) {
               if (err) throw err;
@@ -934,7 +936,7 @@ suite('server', function() {
           assert.equal(res.statusCode, 200, res.statusCode + ': ' + res.body);
           var ct = res.headers['content-type'];
           assert.equal(ct, 'image/png');
-          assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png',  2,
+          assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
             function(err, similarity) {
               if (err) throw err;
               done();
@@ -971,7 +973,7 @@ suite('server', function() {
             assert.equal(res.statusCode, 200, res.statusCode + ': ' + res.body);
             var ct = res.headers['content-type'];
             assert.equal(ct, 'image/png');
-            assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png',  2,
+            assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
               function(err, similarity) {
                 next(err);
             });
@@ -1068,7 +1070,7 @@ suite('server', function() {
             assert.equal(res.statusCode, 200, res.statusCode + ': ' + res.body);
             var ct = res.headers['content-type'];
             assert.equal(ct, 'image/png');
-            assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png',  2,
+            assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
               function(err, similarity) {
                 // NOTE: we expect them to be EQUAL here
                 if (err) { next(err); return; }
@@ -1105,7 +1107,7 @@ suite('server', function() {
             assert.equal(res.statusCode, 200, res.statusCode + ': ' + res.body);
             var ct = res.headers['content-type'];
             assert.equal(ct, 'image/png');
-            assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png',  2,
+            assert.imageEqualsFile(res.body, './test/fixtures/test_table_15_16046_12354_styled_black.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
               function(err, similarity) {
                 // NOTE: we expect them to be different here
                 if (err) next(); 

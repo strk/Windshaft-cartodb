@@ -1,3 +1,6 @@
+New features:
+ - Add support for raster layers
+
 1.12.1 -- 2014-06-24
 --------------------
 

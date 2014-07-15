@@ -20,6 +20,8 @@ serverOptions = ServerOptions();
 var server = new CartodbWindshaft(serverOptions);
 server.setMaxListeners(0);
 
+var IMAGE_EQUALS_TOLERANCE_PERCENT = 24;
+
 suite('multilayer', function() {
 
     var redis_client = redis.createClient(global.environment.redis.port);
@@ -35,7 +37,7 @@ suite('multilayer', function() {
       sqlapi_server = new SQLAPIEmu(global.environment.sqlapi.port, done);
     });
 
-    test("layergroup with 2 layers, each with its style", function(done) {
+    test.only("layergroup with 2 layers, each with its style", function(done) {
 
       var layergroup =  {
         version: '1.0.0',
@@ -113,7 +115,7 @@ suite('multilayer', function() {
                 + layergroup.layers[1].options.sql 
                 + '$windshaft$)');
 
-              assert.imageEqualsFile(res.body, 'test/fixtures/test_table_0_0_0_multilayer1.png', 2,
+              assert.imageEqualsFile(res.body, 'test/fixtures/test_table_0_0_0_multilayer1.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
@@ -149,7 +151,7 @@ suite('multilayer', function() {
           }, {}, function(res) {
               assert.equal(res.statusCode, 200, res.body);
               assert.equal(res.headers['content-type'], "text/javascript; charset=utf-8; charset=utf-8");
-              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_table_0_0_0_multilayer1.layer0.grid.json', 2,
+              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_table_0_0_0_multilayer1.layer0.grid.json', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
@@ -167,7 +169,7 @@ suite('multilayer', function() {
           }, {}, function(res) {
               assert.equal(res.statusCode, 200, res.body);
               assert.equal(res.headers['content-type'], "text/javascript; charset=utf-8; charset=utf-8");
-              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_table_0_0_0_multilayer1.layer1.grid.json', 2,
+              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_table_0_0_0_multilayer1.layer1.grid.json', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
@@ -391,7 +393,7 @@ suite('multilayer', function() {
                     .replace(RegExp('!pixel_height!', 'g'), '1')
                 + '$windshaft$)');
 
-              assert.imageEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.png', 2,
+              assert.imageEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
@@ -424,7 +426,7 @@ suite('multilayer', function() {
                     .replace('!pixel_height!', '1')
                 + '$windshaft$)');
 
-              assert.imageEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.png', 2,
+              assert.imageEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
@@ -442,7 +444,7 @@ suite('multilayer', function() {
           }, {}, function(res) {
               assert.equal(res.statusCode, 200, res.body);
               assert.equal(res.headers['content-type'], "text/javascript; charset=utf-8; charset=utf-8");
-              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.grid.json', 2,
+              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.grid.json', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
@@ -460,7 +462,7 @@ suite('multilayer', function() {
           }, {}, function(res) {
               assert.equal(res.statusCode, 200, res.body);
               assert.equal(res.headers['content-type'], "text/javascript; charset=utf-8; charset=utf-8");
-              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.grid.json', 2,
+              assert.utfgridEqualsFile(res.body, 'test/fixtures/test_multilayer_bbox.grid.json', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
@@ -552,15 +554,15 @@ suite('multilayer', function() {
         function check_global_stats_2(err, val)
         {
           if ( err ) throw err;
-          assert.equal(val, 2, "Expected score of " + now + " in "
-              +  statskey + ":global to be 2, got " + val);
+          assert.equal(val, IMAGE_EQUALS_TOLERANCE_PERCENT, "Expected score of " + now + " in "
+              +  statskey + ":global to be IMAGE_EQUALS_TOLERANCE_PERCENT, got " + val);
           redis_stats_client.zscore(statskey+':stat_tag:' + layergroup.stat_tag, now, this);
         },
         function check_tag_stats_2(err, val)
         {
           if ( err ) throw err;
-          assert.equal(val, 2, "Expected score of " + now + " in "
-              +  statskey + ":stat_tag:" + layergroup.stat_tag + " to be 2, got " + val);
+          assert.equal(val, IMAGE_EQUALS_TOLERANCE_PERCENT, "Expected score of " + now + " in "
+              +  statskey + ":stat_tag:" + layergroup.stat_tag + " to be IMAGE_EQUALS_TOLERANCE_PERCENT, got " + val);
           return 1;
         },
         function cleanup_map_style(err) {
@@ -1053,7 +1055,7 @@ suite('multilayer', function() {
           }, {}, function(res) {
               assert.equal(res.statusCode, 200, res.body);
               assert.equal(res.headers['content-type'], "image/png");
-              assert.imageEqualsFile(res.body, windshaft_fixtures + '/test_default_mapnik_point.png', 2,
+              assert.imageEqualsFile(res.body, windshaft_fixtures + '/test_default_mapnik_point.png', IMAGE_EQUALS_TOLERANCE_PERCENT,
                 function(err, similarity) {
                   next(err);
               });
