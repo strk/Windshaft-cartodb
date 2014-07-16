@@ -64,6 +64,9 @@ var config = {
          */
         persist_connection: false,
         simplify_geometries: true,
+        clip_rasters: true,
+        prescale_rasters: true,
+        use_overviews: true,
         max_size: 500
     }
     ,mapnik_version: undefined

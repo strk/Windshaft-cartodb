@@ -62,6 +62,9 @@ var config = {
         */
         row_limit: 65535,
         simplify_geometries: true,
+        clip_rasters: true,
+        prescale_rasters: true,
+        use_overviews: true,
         /*
          * Set persist_connection to false if you want
          * database connections to be closed on renderer
