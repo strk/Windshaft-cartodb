@@ -112,8 +112,8 @@
     },
     "windshaft": {
       "version": "0.21.0",
-      "from": "windshaft@git://github.com/strk/Windshaft.git#2c2d5b01",
-      "resolved": "git://github.com/strk/Windshaft.git#2c2d5b01be877bd82078d6cb72038c89fe11b029",
+      "from": "windshaft@git://github.com/strk/Windshaft.git#5161fc7f",
+      "resolved": "git://github.com/strk/Windshaft.git#5161fc7f2e06df04b265a9d26d2c6a45525ab1df",
       "dependencies": {
         "grainstore": {
           "version": "0.19.0",

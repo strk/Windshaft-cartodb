@@ -20,7 +20,7 @@ serverOptions = ServerOptions();
 var server = new CartodbWindshaft(serverOptions);
 server.setMaxListeners(0);
 
-var IMAGE_EQUALS_TOLERANCE_PERCENT = 24;
+var IMAGE_EQUALS_TOLERANCE_PERCENT = 2;
 
 suite('multilayer', function() {
 
@@ -37,7 +37,7 @@ suite('multilayer', function() {
       sqlapi_server = new SQLAPIEmu(global.environment.sqlapi.port, done);
     });
 
-    test.only("layergroup with 2 layers, each with its style", function(done) {
+    test("layergroup with 2 layers, each with its style", function(done) {
 
       var layergroup =  {
         version: '1.0.0',
@@ -91,7 +91,7 @@ suite('multilayer', function() {
           if ( err ) throw err;
           var next = this;
           assert.response(server, {
-              url: '/tiles/layergroup/' + expected_token + ':cb0/0/0/0.png',
+              url: '/tiles/layergroup/' + expected_token + ':cb0/0/0/0.png32',
               method: 'GET',
               headers: {host: 'localhost' },
               encoding: 'binary'
@@ -554,15 +554,15 @@ suite('multilayer', function() {
         function check_global_stats_2(err, val)
         {
           if ( err ) throw err;
-          assert.equal(val, IMAGE_EQUALS_TOLERANCE_PERCENT, "Expected score of " + now + " in "
-              +  statskey + ":global to be IMAGE_EQUALS_TOLERANCE_PERCENT, got " + val);
+          assert.equal(val, 2, "Expected score of " + now + " in "
+              +  statskey + ":global to be 2, got " + val);
           redis_stats_client.zscore(statskey+':stat_tag:' + layergroup.stat_tag, now, this);
         },
         function check_tag_stats_2(err, val)
         {
           if ( err ) throw err;
-          assert.equal(val, IMAGE_EQUALS_TOLERANCE_PERCENT, "Expected score of " + now + " in "
-              +  statskey + ":stat_tag:" + layergroup.stat_tag + " to be IMAGE_EQUALS_TOLERANCE_PERCENT, got " + val);
+          assert.equal(val, 2, "Expected score of " + now + " in "
+              +  statskey + ":stat_tag:" + layergroup.stat_tag + " to be 2, got " + val);
           return 1;
         },
         function cleanup_map_style(err) {
